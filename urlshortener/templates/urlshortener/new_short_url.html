@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <label for="slink">Your short link</label>
+    <input type="text" id="slink"  >
+    <p>{{surl}}</p>
+    <img src="{% static 'images/qr.png' %}" alt="QR" >
+
+
+
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URLShortener</title>
+</head>
+<body>
+
+<table >
+  <tr>
+    <th>Full</th>
+    <th>Short</th>
+    <th>Expiration</th>
+    <th>Created</th>
+  </tr>
+    {% for link in links %}
+  <tr>
+
+    <td>{{link.full_url}}</td>
+    <td>{{link.short_url}}</td>
+    <td>{{link.expiration_date}}</td>
+    <td>{{link.creation_date | date:"d.m.Y"}}</td>
+
+  </tr>
+    {% endfor %}
+</table>
+
+
+<form method="post">
+    <label for="team_name">Enter name: </label>
+    <input id="team_name" type="text" name="name_field" value="Enter your link">
+    <input type="submit" value="OK">
+</form>
+</body>
+</html>
