@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Url Shortener{% endblock %}
 {% block content %}
+
+{% if not surl %}
 <div class="form-row align-items-center card bg-light p-3 text-center">
     <div class="col-auto">
         <h1 class="h1 p-2">Short your links</h1>
-        <form action="{% url 'new_short_url:surl' %}" method="post">
+        <form action="." method="post">
             {% csrf_token %}
             {{form.as_p}}
             <button type="submit" class="btn btn-primary btn-lg btn-block">Get short link</button>
         </form>
     </div>
 </div>
+{% else %}
+<a href="{{SITE_URL}}/{{surl}}">{{surl}}</a>
+{% comment %}<img src="{% static 'images/qr.png' %}" alt="Image">{% endcomment %}
+{% endif %}
 
 {% endblock %}
 
