@@ -26,7 +26,9 @@ def index(request, surl=None):
                 link = Link.objects.create(full_url=full_url, expiration_date=expiration_date)
                 # get_qr_code(link.short_url)
 
-            return render(request, 'urlshortener/index.html', {'form': form, 'surl': link.short_url})
+            short_url = settings.SITE_URL + "/" + link.short_url
+
+            return render(request, 'urlshortener/index.html', {'form': form, 'surl': short_url})
     else:
         form = UrlForm()
 
@@ -48,4 +50,3 @@ def shorten(request, surl):
 
 def statistic(request, surl):
     return render(request, 'urlshortener/statistic.html', {'surl': surl})
-

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Url Shortener{% endblock %}
 {% block content %}
 
@@ -15,7 +16,7 @@
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Get short link</button>
                     </form>
                     <div class="panel-footer"><span id="url-result">{{ surl|default:"Enter the URL above and click submit!" }}</span></div>
-
+                    <img src="{% static 'images/qr.png' %}" alt="qr">
 
 
                     {% comment %}<div class="panel-footer"><span id="url-res">{{SITE_URL}}/{{surl}}</span></div>{% endcomment %}
