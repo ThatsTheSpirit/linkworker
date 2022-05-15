@@ -3,7 +3,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, HttpResponseNotFound, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Link
+from .models import Link, Stats
 from .forms import UrlForm
 
 # Create your views here.
@@ -27,6 +27,7 @@ def index(request, surl=None):
                 # get_qr_code(link.short_url)
 
             short_url = settings.SITE_URL + "/" + link.short_url
+            get_qr_code(short_url)
 
             return render(request, 'urlshortener/index.html', {'form': form, 'surl': short_url})
     else:
@@ -45,6 +46,16 @@ def shorten(request, surl):
         return Http404()
     link.clicked()
     link.save()
+
+    try:
+        stats = Stats()
+        stats.target = request.META.get("HTTP_REFERER", "")
+        stats.ip = request.META.get("REMOTE_ADDR", "")
+        stats.user_agent = request.META.get("HTTP_USER_AGENT", "")
+        stats.save()
+    except:
+        pass
+
     return HttpResponsePermanentRedirect(link.full_url)
 
 

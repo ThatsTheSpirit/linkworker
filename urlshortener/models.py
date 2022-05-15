@@ -43,3 +43,11 @@ class Link(models.Model):
         verbose_name = 'Ссылка'
         verbose_name_plural = 'Ссылки'
         ordering = ['creation_date', 'expiration_date']
+
+
+class Stats(models.Model):
+    target = models.ForeignKey(Link, on_delete=models.CASCADE)
+    time = models.DateTimeField(auto_now_add=True, editable=False)
+    referer = models.URLField(blank=True, null=True)
+    ip = models.GenericIPAddressField(blank=True, null=True)
+    user_agent = models.CharField(blank=True, max_length=100, null=True)
