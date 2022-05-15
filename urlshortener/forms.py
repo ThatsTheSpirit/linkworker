@@ -1,7 +1,4 @@
 from django import forms
-from django.core.validators import URLValidator
-
-from .models import Link
 
 
 class UrlForm(forms.Form):
