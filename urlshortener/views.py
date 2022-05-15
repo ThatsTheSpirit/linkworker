@@ -49,14 +49,14 @@ def shorten(request, surl):
 
     try:
         stats = Stats()
-        stats.target = request.META.get("HTTP_REFERER", "")
+        stats.target = link# request.META.get("HTTP_REFERER", "")
         stats.ip = request.META.get("REMOTE_ADDR", "")
         stats.user_agent = request.META.get("HTTP_USER_AGENT", "")
         stats.save()
     except:
         pass
 
-    return HttpResponsePermanentRedirect(link.full_url)
+    return HttpResponseRedirect(link.full_url)
 
 
 def statistic(request, surl):
