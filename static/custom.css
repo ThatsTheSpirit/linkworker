@@ -25,3 +25,18 @@ header {
     color: #00e000;
     display: hidden;
 }
+
+table{
+    width: 300px;
+    margin: auto;
+    border-spacing: 15px;
+}
+
+td{
+    padding: 10px;
+    text-align: center;
+}
+
+.qr{
+    padding:10px;
+}

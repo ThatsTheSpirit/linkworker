@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Url Shortener{% endblock %}
 {% block content %}
-
+{% load social_share %}
 
 <div id="content">
     <div class="panel panel-default">
@@ -16,10 +16,46 @@
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Get short link</button>
                     </form>
                     <div class="panel-footer"><span id="url-result">{{ surl|default:"Enter the URL above and click submit!" }}</span></div>
-                    <img src="{% static 'images/qr.png' %}" alt="qr" width="200" height="200">
+                    <img src="{% static 'images/qr.png' %}" alt="qr" width="200" height="200" class="qr">
+
+                    <br>
+
+
+                    <table class="table-responsive table-striped mx-auto w-auto">
+                        <tr>
+                            <td>
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftoppng.com%2Fpublic%2Fuploads%2Fpreview%2Flogo-telegram-png-telegram-app-logo-11563361480gqchhtgi8a.png&f=1&nofb=1"
+                    width="50" height="50">
+                    {% post_to_telegram "Shortened link: {{SITE_URL}}/{{surl}}" Sh.ru %}
+                            </td>
+                            <td>
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftoppng.com%2Fpublic%2Fuploads%2Fpreview%2Ffree-logo-whatsapp-whatsapp-ico-11562848821ey7fdbom5f.png&f=1&nofb=1"
+                    width="50" height="50">
+                    {% post_to_whatsapp "Share via WhatsApp: {{SITE_URL}}/{{surl}}" %}
+                            </td>
+                            <td>
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogosmarcas.net%2Fwp-content%2Fuploads%2F2020%2F11%2FReddit-Emblema.png&f=1&nofb=1"
+                                width="80" height="50">
+                                {% post_to_reddit "Shortened link: {{SITE_URL}}/{{surl}}" Sh.ru %}
+                            </td>
+                            <td>
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftous-logos.com%2Fwp-content%2Fuploads%2F2017%2F05%2FTwitter-logo.png&f=1&nofb=1" width="70" height="50">
+                                {% post_to_twitter "Shortened link: {{SITE_URL}}/{{surl}}. Check it out!" Sh.ru "Post to Twitter" %}
+                            </td>
+                            <td>
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipground.com%2Fimages%2Femail-logo-clipart-transparent-8.jpg&f=1&nofb=1" width="50" height="50">
+                                {% send_email Sh.ru "Shortened link: {{SITE_URL}}/{{surl}}" "Share via email" %}
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <br>
 
 
                     {% comment %}<div class="panel-footer"><span id="url-res">{{SITE_URL}}/{{surl}}</span></div>{% endcomment %}
+
+
 
                 </div>
             </div>
