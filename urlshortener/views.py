@@ -5,7 +5,8 @@ from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, Htt
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Link, Stats
 from .forms import UrlForm
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 # Create your views here.
 from .qrcode_gen import get_qr_code
 
@@ -49,7 +50,7 @@ def shorten(request, surl):
 
     try:
         stats = Stats()
-        stats.target = link# request.META.get("HTTP_REFERER", "")
+        stats.target = link  # request.META.get("HTTP_REFERER", "")
         stats.ip = request.META.get("REMOTE_ADDR", "")
         stats.user_agent = request.META.get("HTTP_USER_AGENT", "")
         stats.save()
@@ -61,3 +62,21 @@ def shorten(request, surl):
 
 def statistic(request, surl):
     return render(request, 'urlshortener/statistic.html', {'surl': surl})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Registered successful')
+            return redirect('login')
+        else:
+            messages.error(request, 'Registered unsuccessful')
+    else:
+        form = UserCreationForm()
+    return render(request, 'urlshortener/register.html', {'form': form})
+
+
+def login(request):
+    return render(request, 'urlshortener/login.html')
