@@ -4,8 +4,8 @@ from django.conf import settings
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, HttpResponseNotFound, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Link, Stats
-from .forms import UrlForm
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UrlForm, UserRegisterForm
+
 from django.contrib import messages
 # Create your views here.
 from .qrcode_gen import get_qr_code
@@ -66,7 +66,7 @@ def statistic(request, surl):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Registered successful')
@@ -74,7 +74,7 @@ def register(request):
         else:
             messages.error(request, 'Registered unsuccessful')
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
     return render(request, 'urlshortener/register.html', {'form': form})
 
 
