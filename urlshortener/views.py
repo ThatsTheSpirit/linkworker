@@ -69,10 +69,10 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Registered successful')
+            messages.success(request, 'Вы успешно зарегистрировались!')
             return redirect('login')
         else:
-            messages.error(request, 'Registered unsuccessful')
+            messages.error(request, 'Ошибка регистрации!')
     else:
         form = UserRegisterForm()
     return render(request, 'urlshortener/register.html', {'form': form})

@@ -2,5 +2,14 @@
 {% load static %}
 {% block title %}Вход{% endblock %}
 {% block content %}
-    <h1>Вход</h1>
+<h1 class="text-center" style="margin-bottom: 50px">Авторизация</h1>
+
+
+<div class="d-flex align-items-center justify-content-center vh-200">
+    <form action="." method="post" class="center col-md-6 row">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Войти</button>
+    </form>
+</div>
 {% endblock %}
