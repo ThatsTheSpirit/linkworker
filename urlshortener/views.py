@@ -38,8 +38,8 @@ def index(request, surl=None):
     return render(request, 'urlshortener/index.html', {'form': form})
 
 
-def new_short_url(request, surl):
-    return render(request, 'urlshortener/new_short_url.html', {'surl': surl})
+# def new_short_url(request, surl):
+#     return render(request, 'urlshortener/stats.html', {'surl': surl})
 
 
 def shorten(request, surl):
@@ -61,8 +61,8 @@ def shorten(request, surl):
     return HttpResponseRedirect(link.full_url)
 
 
-def statistic(request, surl):
-    return render(request, 'urlshortener/statistic.html', {'surl': surl})
+def statistic(request):
+    return render(request, 'urlshortener/stats.html')
 
 
 def register(request):
