@@ -46,7 +46,7 @@ class Link(models.Model):
 
 
 class Stats(models.Model):
-    target = models.ForeignKey(Link, on_delete=models.CASCADE)
+    target = models.ForeignKey(Link, on_delete=models.SET_NULL, blank=True, null=True)
     time = models.DateTimeField(auto_now_add=True, editable=False)
     referer = models.URLField(blank=True, null=True)
     ip = models.GenericIPAddressField(blank=True, null=True)

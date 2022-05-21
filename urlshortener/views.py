@@ -69,9 +69,10 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, 'Вы успешно зарегистрировались!')
-            return redirect('login')
+            return redirect('home')
         else:
             messages.error(request, 'Ошибка регистрации!')
     else:
@@ -90,3 +91,8 @@ def user_login(request):
         form = UserLoginForm()
 
     return render(request, 'urlshortener/login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
