@@ -4,9 +4,10 @@ from django.conf import settings
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect, HttpResponseNotFound, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Link, Stats
-from .forms import UrlForm, UserRegisterForm
+from .forms import UrlForm, UserRegisterForm, UserLoginForm
 
 from django.contrib import messages
+from django.contrib.auth import login, logout
 # Create your views here.
 from .qrcode_gen import get_qr_code
 
@@ -78,5 +79,14 @@ def register(request):
     return render(request, 'urlshortener/register.html', {'form': form})
 
 
-def login(request):
-    return render(request, 'urlshortener/login.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+
+    return render(request, 'urlshortener/login.html', {'form': form})
